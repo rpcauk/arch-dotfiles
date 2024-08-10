@@ -9,6 +9,7 @@ alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
 alias md="mkdir -pv"
+del() { mv "$@" ~/.trash }
 
 alias pacman="sudo pacman"
 alias up='sudo pacman -Syu --noconfirm --needed - < "/home/ryan/dotfiles/bootstrap/packages/default.txt" && yay -Syu --noconfirm --needed - < "/home/ryan/dotfiles/bootstrap/packages/aur.txt"'

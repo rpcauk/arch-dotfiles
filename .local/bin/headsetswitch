@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# If sink bluetooth, switch from ad2p-sink to headset-head-unit
+# Tun on mic mute light when on headset-head-unit
+sink_name=$(pamixer --list-sinks | grep "bluez_output" | awk '{print $2}' | tr -d '"')
+
+[ -z "$sink_name" ] && exit
+sink=$(pactl --format json list sinks | jq '.[] | select(.name=="'"$sink_name"'")')
+device=$(echo "$sink" | jq -r '.properties."device.name"')
+profile=$(echo "$sink" | jq -r '.properties."api.bluez5.profile"')
+
+if [[ "$profile" == "a2dp-sink" ]]; then
+    pactl set-card-profile "$device" "headset-head-unit"
+    echo 1 | sudo tee /sys/class/leds/platform::micmute/brightness
+elif [[ "$profile" == "headset-head-unit" ]]; then
+    pactl set-card-profile "$device" "a2dp-sink"
+    echo 0 | sudo tee /sys/class/leds/platform::micmute/brightness
+fi
