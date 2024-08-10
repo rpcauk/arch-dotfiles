@@ -80,7 +80,8 @@
     "format-source-muted": "",
     "format-icons": {
       "default": ""
-    }
+    },
+    "on-click": "sinkmenu"
   },
   "custom/media": {
     "format": "{}",

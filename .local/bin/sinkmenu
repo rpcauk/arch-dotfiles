@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Add option for sources
+# Don't know where, but add ability mute wired mic
+# Also add to waybar microphone status (greyed out if off, white if on) along side led
+
+sinks=$(pactl --format json list sinks)
+chosen=$(echo "$sinks" | jq -r '.[].properties."device.description"' | rofi -dmenu -p "sink")
+pactl set-default-sink $(echo "$sinks" | jq -r '.[] | select(.properties."device.description"=="'"$chosen"'") | .name') && notify-send "Audio Sink Updated" "Audio sink switched to $chosen" || notify-send "Audio Sink Update Failed" "Failed to update audio sink to $chosen"
