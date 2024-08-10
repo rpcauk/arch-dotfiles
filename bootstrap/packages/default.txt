@@ -66,3 +66,6 @@ wl-clipboard
 cliphist
 jq
 rsync
+stow
+grim
+slurp
