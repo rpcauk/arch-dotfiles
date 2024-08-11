@@ -1,0 +1,18 @@
+#!/bin/bash
+
+active_workspace=$(hyprctl activeworkspace -j | jq '.id')
+monitors=$(hyprctl monitors -j)
+monitor_0=$(echo "$monitors" | jq '.[] | select(.id==0) | .activeWorkspace.id')
+monitor_1=$(echo "$monitors" | jq '.[] | select(.id==1) | .activeWorkspace.id')
+
+if [[ $active_workspace == $monitor_0 ]]; then
+    hyprctl dispatch "moveworkspacetomonitor $monitor_0 1"
+    hyprctl dispatch "workspace $monitor_1"
+    hyprctl dispatch "moveworkspacetomonitor $monitor_1 0"
+    hyprctl dispatch "workspace $monitor_0"
+else
+    hyprctl dispatch "moveworkspacetomonitor $monitor_1 0"
+    hyprctl dispatch "workspace $monitor_0"
+    hyprctl dispatch "moveworkspacetomonitor $monitor_0 1"
+    hyprctl dispatch "workspace $monitor_1"
+fi
