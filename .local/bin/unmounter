@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# Mounts Android Phones and USB drives (encrypted or not)
+
+phone_esc(){ echo "$@" | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]'; }
+
+# PHONES
+mounted_phones="$(grep "simple-mtpfs" /etc/mtab)"
+phones="$(simple-mtpfs -l 2>/dev/null)"
+phones="$(for phone in "$phones"; do
+    [[ -z "$drive" ]] && continue
+    esc_phone=$(phone_esc "$phone")
+    [[ "$mounted_phones" =~ "$esc_phone" ]] || continue
+    echo " $phone"
+done)"
+
+# LUKS DRIVES
+all_drives="$(lsblk -n -rpo "uuid,name,size,mountpoint,fstype")"
+
+luks="$(echo "$all_drives" | grep crypto_LUKS)"
+luks="$(for drive in "$luks"; do
+    [[ -z "$drive" ]] && continue
+    uuid=$(echo "$drive" | cut -d ' ' -f 1)
+    name=$(echo "$drive" | cut -d ' ' -f 2)
+    size=$(echo "$drive" | cut -d ' ' -f 3)
+    sudo cryptsetup status "$uuid" | grep -q "is active" || continue
+    echo " $name ($size)"
+done)"
+
+# OTHER DRIVES
+drives=$(echo "$all_drives" | grep -v "crypto_LUKS" | grep "/dev/sd[b-z][0-9]\+")
+drives="$(for drive in "$drives"; do
+    [[ -z "$drive" ]] && continue
+    name=$(echo "$drive" | cut -d ' ' -f 2)
+    size=$(echo "$drive" | cut -d ' ' -f 3)
+    mount=$(echo "$drive" | cut -d ' ' -f 4)
+    [[ -z "$mount" ]] && continue
+    echo " $name ($size)"
+done)"
+
+mounted="$(echo "$phones
+$luks
+$drives" | sed "/^$/d")"
+
+# Feed all found drives to dmenu and get user choice.
+chosen="$(echo "$mounted" | rofi -dmenu -p "unmount")"
+
+case "$chosen" in
+    *)
+	name=$(echo "$chosen" | cut -d ' ' -f 2)
+	path=$(echo "$all_drives" | grep "$name" | cut -d ' ' -f 4)
+	sudo -A umount "$path"
+	unmount_return=$?
+	if [[ $unmount_return ]]; then
+            notify-send "Drive Un-Mounted Successfully" "$chosen un-mounted from $path"
+	else
+            notify-send "Failed to Un-Mount Drive" "$chosen could not be un-mounted from $path"
+	fi
+    ;;
+    *)
+        name=$(echo "$chosen" | cut -d ' ' -f 2)
+	uuid=$(echo "$all_drives" | grep "$name" | cut -d ' ' -f 1)
+	path="/dev/mapper/${uuid}"
+	sudo -A umount "$path"
+	unmount_return=$?
+	if [[ $unmount_return ]]; then
+            notify-send "Drive Un-Mounted Successfully" "$chosen un-mounted from $path"
+	else
+            notify-send "Failed to Un-Mount Drive" "$chosen could not be un-mounted from $path"
+	    exit 1
+	fi
+	sudo cryptsetup close "$uuid"
+	encrypt_return=$?
+	if [[ $encrypt_return ]]; then
+            notify-send "Drive Encrypted Successfully" "$chosen encrypted"
+	else
+            notify-send "Failed to Encrypt Drive" "$chosen could not encrypted"
+	fi
+    ;;
+    *)
+	path=$(echo "$mounted_phones" | grep "simple-mtpfs-$(phone_esc "$chosen")" | cut -d ' ' -f 2)
+	sudo -A umount "$path"
+	unmount_return=$?
+	if [[ $unmount_return ]]; then
+            notify-send "Drive Un-Mounted Successfully" "$chosen un-mounted from path"
+	else
+            notify-send "Failed to Un-Mount Drive" "$chosen could not be un-mounted from $path"
+	fi
+    ;;
+esac
