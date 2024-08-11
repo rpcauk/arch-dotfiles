@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pamixer --toggle-mute
+mute=$(pamixer --get-mute)
+if [[ "$mute" == "true" ]]; then
+    echo 1 | sudo tee /sys/class/leds/platform::mute/brightness
+else
+    echo 0 | sudo tee /sys/class/leds/platform::mute/brightness
+fi
