@@ -36,6 +36,7 @@
     "format-icons": {
       "1": "",
       "2": "",
+      "8": "",
       "9": ""
     }
   },
@@ -88,7 +89,7 @@
     "format": "{}",
     "return-type": "json",
     "max-length":70,
-    "exec": "waybarmedia",
+    "exec": "waybarmusic",
     "on-click": "playerctl --player=mpd play-pause"
   },
   "custom/source": {

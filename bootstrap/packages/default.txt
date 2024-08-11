@@ -69,3 +69,10 @@ rsync
 stow
 grim
 slurp
+auto-cpufreq
+qemu-full
+qemu-img
+libvirt
+virt-install
+virt-manager
+virt-viewer
