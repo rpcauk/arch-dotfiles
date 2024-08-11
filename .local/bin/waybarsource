@@ -1,0 +1,19 @@
+#!/bin/bash
+
+while true; do
+    sources=$(pactl --format json list sources)
+    default=$(pactl get-default-source)
+    description=$(echo "$sources" | jq -r '.[] | select(.name=="'"$default"'") | .description')
+    state=$(echo "$sources" | jq -r '.[] | select(.name=="'"$default"'") | .state' | tr '[:upper:]' '[:lower:]')
+    mute=$(echo "$sources" | jq -r '.[] | select(.name=="'"$default"'") | .mute')
+    status=$([[ "$mute" == "false" && "$state" == "running" ]] && echo "on" || echo "off")
+    text=$([[ "$mute" == "false" ]] && echo "" || echo "")
+    tooltip=$(echo "$description")
+    if [[ "$mute" == "false" ]]; then
+        echo 1 | sudo tee /sys/class/leds/platform::micmute/brightness
+    else
+        echo 0 | sudo tee /sys/class/leds/platform::micmute/brightness
+    fi
+    printf '{"text":"%s","tooltip":"%s","class":["%s"]}\n' "$text" "$tooltip" "$status"
+    sleep 1
+done

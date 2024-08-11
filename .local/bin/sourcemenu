@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Add option for sources
+# Don't know where, but add ability mute wired mic
+# Also add to waybar microphone status (greyed out if off, white if on) along side led
+
+sources=$(pactl --format json list sources)
+chosen=$(echo "$sources" | jq -r '.[].description' | grep -v "Monitor" | rofi -dmenu -p "source")
+[ -z "$chosen" ] && exit 1
+pactl set-default-source $(echo "$sources" | jq -r '.[] | select(.description=="'"$chosen"'") | .name') && notify-send "Audio Source Updated" "Audio source switched to $chosen" || notify-send "Audio Source Update Failed" "Failed to update audio source to $chosen"

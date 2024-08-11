@@ -6,4 +6,5 @@
 
 sinks=$(pactl --format json list sinks)
 chosen=$(echo "$sinks" | jq -r '.[].properties."device.description"' | rofi -dmenu -p "sink")
+[ -z "$chosen" ] && exit 1
 pactl set-default-sink $(echo "$sinks" | jq -r '.[] | select(.properties."device.description"=="'"$chosen"'") | .name') && notify-send "Audio Sink Updated" "Audio sink switched to $chosen" || notify-send "Audio Sink Update Failed" "Failed to update audio sink to $chosen"

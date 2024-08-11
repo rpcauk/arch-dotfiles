@@ -1,0 +1,28 @@
+#!/bin/bash
+
+sources=$(pamixer --list-sources | grep -v "monitor" | awk '{print $2}' | tr -d '"')
+default_source=$(pactl get-default-source)
+
+# Allowing toggling on non-bluetooth source if selected
+if [[ "$sources" =~ "bluez" && ! "$default_source" =~ "bluez" ]]; then
+    echo "lhk"
+    pactl set-source-mute "$(pactl get-default-source)" "toggle"
+    exit
+fi
+
+# Enable toggle on bluetooth headphones
+bluez_sink=$(pamixer --list-sinks | grep "bluez_output" | awk '{print $2}' | tr -d '"')
+sink=$(pactl --format json list sinks | jq '.[] | select(.name=="'"$bluez_sink"'")')
+device=$(echo "$sink" | jq -r '.properties."device.name"')
+profile=$(echo "$sink" | jq -r '.properties."api.bluez5.profile"')
+
+if [[ "$profile" == "a2dp-sink" ]]; then
+    pactl set-card-profile "$device" "headset-head-unit"
+    bluez_source=$(pamixer --list-sources | grep "bluez" | grep -v "monitor" | awk '{print $2}' | tr -d '"')
+    pactl set-source-mute "$bluez_source" 0
+    pactl set-default-source "$bluez_source"
+elif [[ "$profile" == "headset-head-unit" ]]; then
+    bluez_source=$(pamixer --list-sources | grep "bluez" | grep -v "monitor" | awk '{print $2}' | tr -d '"')
+    pactl set-source-mute "$bluez_source" 1
+    pactl set-card-profile "$device" "a2dp-sink"
+fi

@@ -12,6 +12,7 @@
     "custom/media",
     "custom/separator",
     "bluetooth",
+    "custom/source",
     "pulseaudio",
     "network",
     "custom/separator",
@@ -89,6 +90,12 @@
     "max-length":70,
     "exec": "waybarmedia",
     "on-click": "playerctl --player=mpd play-pause"
+  },
+  "custom/source": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "waybarsource",
+    "on-click": "sourcemenu"
   }
 }
 
