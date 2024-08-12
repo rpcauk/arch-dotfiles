@@ -5,7 +5,6 @@
 * Control external monitor brightness (https://moverest.xyz/blog/control-display-with-ddc-ci/)
 * Bookmarks in dmenu script
 * Suspend on screen close
-* Dunst Nord theme
 * Mount drives/phones dmenu script
 * Remap caps lock and other keys (wlan and bluetooth)
 * Backup emails locally

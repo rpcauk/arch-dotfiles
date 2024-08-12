@@ -1,9 +1,14 @@
 #!/bin/bash
 
 if [ -f "$XDG_RUNTIME_DIR/webcam.pid" ]; then
-    pkill -P "$(cat "$XDG_RUNTIME_DIR/webcam.pid")"
-    rm "$XDG_RUNTIME_DIR/webcam.pid"
+    kill "$(cat "$XDG_RUNTIME_DIR/webcam.pid")" && rm "$XDG_RUNTIME_DIR/webcam.pid"
     exit 0
 fi
-echo "$$" > "$XDG_RUNTIME_DIR/webcam.pid"
-mpv --demuxer-lavf-o=video_size=1280x720,input_format=mjpeg av://v4l2:/dev/video0 --profile=low-latency --no-osc
+
+active_workspace=$(hyprctl activeworkspace -j | jq '.monitorID')
+offset=20
+if [[ $active_workspace == 0 ]]; then
+    offset=$(($offset + 30))
+fi
+hyprctl dispatch exec "[float; size 25% 25%; move 100%-w-20 100%-w-${offset}]" "mpv --demuxer-lavf-o=video_size=1280x720,input_format=mjpeg av://v4l2:/dev/video0 --profile=low-latency --no-osc"
+ps -aux | grep "[:]/dev/video0" | awk '{print $2}' > "$XDG_RUNTIME_DIR/webcam.pid"
