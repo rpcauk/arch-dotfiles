@@ -16,6 +16,7 @@
     "custom/source",
     "pulseaudio",
     "network",
+    "custom/warp",
     "custom/separator",
     "clock",
     "custom/separator",
@@ -98,6 +99,12 @@
     "return-type": "json",
     "exec": "waybarsource",
     "on-click": "sourcemenu"
+  },
+  "custom/warp": {
+    "format": {},
+    "return-type": "json",
+    "exec": "waybarwarp",
+    "on-click": "warptoggle"
   }
 }
 

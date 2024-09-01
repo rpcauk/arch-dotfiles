@@ -1,0 +1,8 @@
+#!/bin/bash
+
+status=$(warp-cli status | grep -o "Connected\|Disconnected")
+if [[ "$status" == "Connected" ]]; then
+    warp-cli disconnect
+elif [[ "$status" == "Disconnected" ]]; then
+    warp-cli connect
+fi

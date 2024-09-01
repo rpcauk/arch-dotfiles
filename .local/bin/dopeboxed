@@ -5,7 +5,7 @@
 videos_dir="${HOME}/Videos"
 type=$(echo "$1" | grep -Pq "S[0-9]{2}E[0-9]{2}" && echo "tv" || echo "movies")
 if [[ "$type" == "movies" ]]; then
-    output_path="${videos_dir}/${type}/${1}.mp4"
+    output_path="${videos_dir}/${type}/${1}/${1}.mp4"
 elif [[ "$type" == "tv" ]]; then
     series_dir=$(echo "$1" | grep -Po ".*\([0-9]{4}\)")
     season_dir=$(echo "$1" | grep -Po ".*S[0-9]{2}")
@@ -13,4 +13,4 @@ elif [[ "$type" == "tv" ]]; then
 fi
 
 mkdir -p "$(dirname "$output_path")"
-yt-dlp --no-part --restrict-filenames -N 10 -R 999 --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" --cookies-from-browser firefox --referer "https://rabbitstream.net/" --downloader "ffmpeg" -P temp:/tmp/ --output "$output_path" "$2"
+yt-dlp --no-part --restrict-filenames -N 10 -R 999 --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" --cookies-from-browser firefox --referer "https://rabbitstream.net/" -P temp:/tmp/ --output "$output_path" "$2"

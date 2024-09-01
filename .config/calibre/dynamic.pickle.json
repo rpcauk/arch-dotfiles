@@ -1,0 +1,25 @@
+{
+  "add books dialog dir": "/home/ryan/Downloads",
+  "add books dialog dir-last-used-filter-spec-all-files": false,
+  "choose library location": "/home/ryan/Books",
+  "s_r_search_mode": 0,
+  "sort_history": [
+    [
+      "title",
+      true
+    ],
+    [
+      "publisher",
+      false
+    ],
+    [
+      "ondevice",
+      true
+    ],
+    [
+      "timestamp",
+      false
+    ]
+  ],
+  "welcome_wizard_was_run": true
+}

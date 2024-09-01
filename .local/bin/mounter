@@ -15,7 +15,7 @@ phones="$(for phone in "$phones"; do
 done)"
 
 # LUKS DRIVES
-all_drives="$(lsblk -n -rpo "uuid,name,size,mountpoint,fstype")"
+all_drives="$(lsblk -n -rpo "uuid,name,size,mountpoint,fstype" | grep -v '^ .*')"
 
 luks="$(echo "$all_drives" | grep crypto_LUKS)"
 luks="$(for drive in "$luks"; do
@@ -30,6 +30,8 @@ done)"
 # OTHER DRIVES
 drives=$(echo "$all_drives" | grep -v "crypto_LUKS" | grep "/dev/sd[b-z][0-9]\+")
 drives="$(for drive in "$drives"; do
+    [[ -z "$drive" ]] && continue
+    uuid=$(echo "$drive" | cut -d ' ' -f 1)
     [[ -z "$drive" ]] && continue
     name=$(echo "$drive" | cut -d ' ' -f 2)
     size=$(echo "$drive" | cut -d ' ' -f 3)

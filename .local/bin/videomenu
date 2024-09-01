@@ -7,6 +7,7 @@ chosen_type=$(printf "$media_types" | rofi -dmenu -p "media")
 case "$chosen_type" in
     movies)
         chosen_movie=$(find "${video_dir}/${chosen_type}" -mindepth 1 -maxdepth 1 | sort | xargs -I {} basename {} | rofi -dmenu -i -p "movie")
+	[[ -z "$chosen_movie" ]] && exit 0
 	movie_path="${video_dir}/${chosen_type}/${chosen_movie}"
 	movie_files=$(find "$movie_path" -mindepth 1 -name "*.mp4" | sed "s|^$movie_path/||")
 	if [[ $(echo "$movie_files" | wc -l) == 1 && "$movie_files" == "${chosen_movie}.mp4" ]]; then
@@ -18,10 +19,13 @@ case "$chosen_type" in
     ;;
     tv)
         chosen_tv=$(find "${video_dir}/${chosen_type}" -mindepth 1 -maxdepth 1 | sort | xargs -I {} basename {} | rofi -dmenu -i -p "tv")
+	[[ -z "$chosen_tv" ]] && exit 0
 	tv_path="${video_dir}/${chosen_type}/${chosen_tv}"
 	tv_season=$(find "$tv_path" -mindepth 1 -maxdepth 1 | sort | sed "s|^$tv_path/$chosen_tv - ||" | rofi -dmenu -p "season")
+	[[ -z "$tv_season" ]] && exit 0
 	tv_path="${tv_path}/${chosen_tv} - ${tv_season}"
 	tv_episode=$(find "$tv_path" -mindepth 1 -name "*.mp4" | sort | sed "s|^$tv_path/$chosen_tv - $tv_season||" | sed "s|\.mp4||" | rofi -dmenu -p "episode")
+	[[ -z "$tv_episode" ]] && exit 0
         hyprctl dispatch exec "[workspace 8]" "mpv '${tv_path}/${chosen_tv} - ${tv_season}${tv_episode}.mp4'"
     ;;
     youtube)

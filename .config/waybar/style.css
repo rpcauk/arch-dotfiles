@@ -66,6 +66,7 @@ window#waybar {
 #clock,
 #custom-media,
 #custom-source,
+#custom-warp,
 #pulseaudio {
     padding: 0 3px;
     background: @nord0;
@@ -89,6 +90,7 @@ window#waybar {
 #bluetooth.on,
 #custom-media.Paused,
 #custom-source.off,
+#custom-warp.Disconnected,
 #pulseaudio.muted,
 #network.disconnected {
     color: @nord2;

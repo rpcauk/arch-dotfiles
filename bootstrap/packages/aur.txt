@@ -3,3 +3,6 @@ zotify
 vscodium-bin
 mpd-mpris-bin
 simple-mtpfs
+auto-cpufreq
+musicbee
+cloudflare-warp-bin

@@ -4,8 +4,7 @@ sources=$(pamixer --list-sources | grep -v "monitor" | awk '{print $2}' | tr -d 
 default_source=$(pactl get-default-source)
 
 # Allowing toggling on non-bluetooth source if selected
-if [[ "$sources" =~ "bluez" && ! "$default_source" =~ "bluez" ]]; then
-    echo "lhk"
+if [[ ! "$default_source" =~ "bluez" ]]; then
     pactl set-source-mute "$(pactl get-default-source)" "toggle"
     exit
 fi

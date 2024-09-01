@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while true; do
+    status=$(warp-cli status | grep -o "Connected\|Disconnected")
+    text=""
+    tooltip="Cloudflare Warp ${status}"
+    printf '{"text":"%s","tooltip":"%s","class":["%s"]}\n' "$text" "$tooltip" "$status"
+    sleep 1
+done
