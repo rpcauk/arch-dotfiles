@@ -203,36 +203,36 @@
       },
       "virtual_geometry": {
         "height": 1080,
-        "width": 3840,
+        "width": 1920,
         "x": 0,
         "y": 0
       }
     }
   },
-  "geometry-of-metasingle_window_geometry3": {
+  "geometry-of-metadata_single_gui_geom": {
     "frame_geometry": {
-      "height": 1030,
-      "width": 1850,
-      "x": 24,
-      "y": 0
+      "height": 445,
+      "width": 936,
+      "x": 520,
+      "y": 187
     },
     "full_screened": false,
     "geometry": {
-      "height": 1030,
-      "width": 1850,
-      "x": 24,
-      "y": 0
+      "height": 445,
+      "width": 936,
+      "x": 520,
+      "y": 187
     },
     "maximized": false,
     "normal_geometry": {
-      "height": 1030,
-      "width": 1850,
-      "x": 24,
-      "y": 0
+      "height": 445,
+      "width": 936,
+      "x": 520,
+      "y": 187
     },
     "qt": {
       "__class__": "bytearray",
-      "__value__": "AdnQywADAAAAAAAYAAAAAAAAB1EAAAQFAAAAGAAAAAAAAAdRAAAEBQAAAAAAAAAAB4AAAAAYAAAAAAAAB1EAAAQF"
+      "__value__": "AdnQywADAAAAAAIIAAAAuwAABa8AAAJ3AAACCAAAALsAAAWvAAACdwAAAAAAAAAAB4AAAAIIAAAAuwAABa8AAAJ3"
     },
     "screen": {
       "depth": 24,
@@ -254,7 +254,58 @@
       },
       "virtual_geometry": {
         "height": 1080,
-        "width": 3840,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-metasingle_window_geometry3": {
+    "frame_geometry": {
+      "height": 642,
+      "width": 1227,
+      "x": 343,
+      "y": 207
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 642,
+      "width": 1227,
+      "x": 343,
+      "y": 207
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 642,
+      "width": 1227,
+      "x": 343,
+      "y": 207
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAFXAAAAzwAABiEAAANQAAABVwAAAM8AAAYhAAADUAAAAAAAAAAAB4AAAAFXAAAAzwAABiEAAANQ"
+    },
+    "screen": {
+      "depth": 24,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "",
+      "model": "",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 1920,
         "x": 0,
         "y": 0
       }
@@ -262,7 +313,7 @@
   },
   "grid view visible": false,
   "library_usage_stats": {
-    "/home/ryan/Books": 5,
+    "/home/ryan/Books": 9,
     "/home/ryan/Calibre Library": 4
   },
   "main_window_central_widget_state": {
@@ -293,6 +344,10 @@
       "quick_view": false,
       "tag_browser": true
     }
+  },
+  "metadata-download-identify-widget-splitter-state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAACAAAAAQAA/////wEAAAABAA=="
   },
   "previous_sort_order_BooksView": {
     "publisher": false,

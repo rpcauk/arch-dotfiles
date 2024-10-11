@@ -6,3 +6,5 @@ simple-mtpfs
 auto-cpufreq
 musicbee
 cloudflare-warp-bin
+hubble-bin
+flux-bin

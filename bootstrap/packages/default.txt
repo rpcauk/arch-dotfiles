@@ -81,3 +81,6 @@ sxiv
 ntfs-3g
 zip
 cloudflared
+cilium-cli
+kubeseal
+github-cli

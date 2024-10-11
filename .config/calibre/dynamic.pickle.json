@@ -2,6 +2,12 @@
   "add books dialog dir": "/home/ryan/Downloads",
   "add books dialog dir-last-used-filter-spec-all-files": false,
   "choose library location": "/home/ryan/Books",
+  "notified-version-updates": {
+    "__class__": "set",
+    "__value__": [
+      "7.19"
+    ]
+  },
   "s_r_search_mode": 0,
   "sort_history": [
     [

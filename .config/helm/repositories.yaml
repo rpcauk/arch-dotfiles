@@ -10,3 +10,21 @@ repositories:
   password: ""
   url: https://utkuozdemir.org/helm-charts
   username: ""
+- caFile: ""
+  certFile: ""
+  insecure_skip_tls_verify: false
+  keyFile: ""
+  name: cilium
+  pass_credentials_all: false
+  password: ""
+  url: https://helm.cilium.io/
+  username: ""
+- caFile: ""
+  certFile: ""
+  insecure_skip_tls_verify: false
+  keyFile: ""
+  name: cloudflare
+  pass_credentials_all: false
+  password: ""
+  url: https://cloudflare.github.io/helm-charts
+  username: ""
