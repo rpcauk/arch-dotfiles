@@ -84,3 +84,5 @@ cloudflared
 cilium-cli
 kubeseal
 github-cli
+rust
+obsidian
