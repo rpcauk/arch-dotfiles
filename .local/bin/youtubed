@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# chosen=$(rofi -dmenu -p "url")
+# if [[ -z "$chosen" ]]; then
+#     exit
+# fi
+
+venv_path=/var/tmp/venv
+if [[ ! -d "$venv_path" ]]; then
+    python -m venv "$venv_path"
+    "${venv_path}/bin/pip" install setuptools ytdl_nfo
+fi
+
+yt-dlp --no-part -N 10 -R 999 -f "bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --write-info-json --write-thumbnail -o "Videos/youtube/%(uploader)s/%(title)s [%(id)s]/%(title)s [%(id)s].%(ext)s" "$1" # "$chosen"
+"${venv_path}/bin/ytdl-nfo" "${HOME}/Videos/youtube"
+rsync -av --ignore-existing Videos/youtube cornwall:/data/falmouth

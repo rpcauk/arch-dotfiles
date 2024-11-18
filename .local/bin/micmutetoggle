@@ -6,6 +6,7 @@ default_source=$(pactl get-default-source)
 # Allowing toggling on non-bluetooth source if selected
 if [[ "$sources" =~ "bluez" && ! "$default_source" =~ "bluez" ]]; then
     pactl set-source-mute "$(pactl get-default-source)" "toggle"
+    echo "fjlskdf"
     exit
 fi
 

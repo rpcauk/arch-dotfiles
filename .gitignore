@@ -3,4 +3,6 @@
 .config/pulse/
 .config/VSCodium/
 .config/spotify/
+.config/calibre/
+.config/obsidian/
 venv/

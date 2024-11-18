@@ -15,7 +15,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZCOMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump"
 export BIN_DIR="$HOME/.local/bin"
-export PROJECTS_DIR="$HOME/projects"
+export PROJECTS_DIR="$HOME/Projects"
 
 export PATH=$PATH:$BIN_DIR
 
